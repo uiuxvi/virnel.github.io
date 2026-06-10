@@ -12,190 +12,192 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
 
+  :root {
+    --white:   #FFFFFF;
+    --ink:     #1A1A1A;
+    --ink-mid: rgba(26,26,26,0.55);
+    --ink-soft: rgba(26,26,26,0.38);
+    /* opal secondaries */
+    --opal-yellow: #FFFFE6;
+    --opal-cyan:   #D6FFFF;
+    --opal-pink:   #FFE4FB;
+    --opal-violet: #EEE1FF;
+    --border: rgba(26,26,26,0.1);
+  }
+
   body {
     font-family: 'DM Mono', monospace;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 2.5rem 2rem;
+    justify-content: flex-start;
+    padding: 3.5rem 2rem 2rem;
     position: relative;
     overflow: hidden;
-    background: #f0f0ff;
+    background: var(--white);
   }
 
+  /* ── Aurora background using brand opal palette ── */
   .aurora-bg { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
-  .aurora-bg::before { content: ''; position: absolute; inset: 0; background: #f7f7ff; }
+  .aurora-bg::before { content: ''; position: absolute; inset: 0; background: #FFFFFF; }
 
+  /* Cyan — bottom-left */
   .aurora-1 {
-    position: absolute; width: 160%; height: 160%; top: -40%; left: -30%;
-    background: radial-gradient(ellipse 80% 60% at 40% 35%, rgba(180,170,255,0.55) 0%, rgba(160,200,250,0.35) 35%, rgba(200,230,255,0.15) 65%, transparent 100%);
-    animation: auroraDrift1 18s ease-in-out infinite alternate;
+    position: absolute; width: 100%; height: 80%; bottom: -10%; left: -10%;
+    background: radial-gradient(ellipse 65% 70% at 20% 85%,
+      rgba(214,255,255,0.85) 0%,
+      rgba(214,255,255,0.5) 30%,
+      transparent 65%
+    );
+    animation: breath1 8s ease-in-out infinite alternate;
   }
+  /* Pink/violet — bottom-right */
   .aurora-2 {
-    position: absolute; width: 150%; height: 150%; top: -10%; right: -40%;
-    background: radial-gradient(ellipse 75% 55% at 65% 55%, rgba(160,230,230,0.45) 0%, rgba(180,210,255,0.3) 40%, rgba(220,230,255,0.1) 70%, transparent 100%);
-    animation: auroraDrift2 22s ease-in-out infinite alternate;
+    position: absolute; width: 100%; height: 80%; bottom: -10%; right: -10%;
+    background: radial-gradient(ellipse 65% 70% at 85% 80%,
+      rgba(255,228,251,0.85) 0%,
+      rgba(238,225,255,0.55) 30%,
+      transparent 65%
+    );
+    animation: breath2 10s ease-in-out infinite alternate;
   }
+  /* Yellow — bottom-center */
   .aurora-3 {
-    position: absolute; width: 120%; height: 90%; top: -25%; left: -10%;
-    background: radial-gradient(ellipse 70% 60% at 50% 20%, rgba(255,255,255,0.9) 0%, rgba(240,240,255,0.6) 20%, rgba(210,220,255,0.3) 45%, transparent 100%);
-    animation: auroraDrift3 15s ease-in-out infinite alternate;
+    position: absolute; width: 80%; height: 60%; bottom: -5%; left: 10%;
+    background: radial-gradient(ellipse 60% 65% at 50% 95%,
+      rgba(255,255,230,0.8) 0%,
+      rgba(255,255,230,0.4) 35%,
+      transparent 65%
+    );
+    animation: breath3 12s ease-in-out infinite alternate;
   }
+  /* Violet — mid right */
   .aurora-4 {
-    position: absolute; width: 100%; height: 100%; bottom: -30%; left: -20%;
-    background: radial-gradient(ellipse 65% 50% at 25% 80%, rgba(210,185,255,0.4) 0%, rgba(190,215,255,0.2) 40%, transparent 75%);
-    animation: auroraDrift4 25s ease-in-out infinite alternate;
+    position: absolute; width: 70%; height: 70%; bottom: 0; right: -5%;
+    background: radial-gradient(ellipse 60% 60% at 90% 70%,
+      rgba(238,225,255,0.75) 0%,
+      rgba(255,228,251,0.4) 40%,
+      transparent 65%
+    );
+    animation: breath4 9s ease-in-out infinite alternate;
   }
-  .aurora-shimmer {
+  /* White overlay — top stays white */
+  .aurora-5 {
     position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.0) 0%, rgba(200,190,255,0.08) 25%, rgba(170,220,240,0.06) 50%, rgba(210,185,255,0.08) 75%, rgba(255,255,255,0.0) 100%);
-    background-size: 400% 400%;
-    animation: shimmerSweep 12s ease-in-out infinite;
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,1) 0%,
+      rgba(255,255,255,1) 30%,
+      rgba(255,255,255,0.6) 55%,
+      rgba(255,255,255,0) 100%
+    );
   }
 
-  @keyframes auroraDrift1 {
-    0%   { transform: translate(0,0) scale(1) rotate(-3deg); }
-    33%  { transform: translate(3%,2%) scale(1.05) rotate(0deg); }
-    66%  { transform: translate(-2%,4%) scale(0.97) rotate(2deg); }
-    100% { transform: translate(4%,-3%) scale(1.03) rotate(-1deg); }
+  @keyframes breath1 {
+    0%   { transform: scale(1) translate(0, 0); opacity: 0.7; }
+    33%  { transform: scale(1.08) translate(3%, -4%); opacity: 1; }
+    66%  { transform: scale(0.94) translate(-3%, 5%); opacity: 0.8; }
+    100% { transform: scale(1.05) translate(4%, -2%); opacity: 0.95; }
   }
-  @keyframes auroraDrift2 {
-    0%   { transform: translate(0,0) scale(1) rotate(4deg); }
-    33%  { transform: translate(-4%,3%) scale(1.04) rotate(1deg); }
-    66%  { transform: translate(3%,-2%) scale(0.98) rotate(5deg); }
-    100% { transform: translate(-2%,4%) scale(1.02) rotate(2deg); }
+  @keyframes breath2 {
+    0%   { transform: scale(1) translate(0, 0); opacity: 0.75; }
+    33%  { transform: scale(0.95) translate(-4%, -3%); opacity: 0.9; }
+    66%  { transform: scale(1.09) translate(3%, 4%); opacity: 1; }
+    100% { transform: scale(0.97) translate(-2%, -4%); opacity: 0.8; }
   }
-  @keyframes auroraDrift3 {
-    0%   { transform: translate(0,0) scale(1); opacity:1; }
-    50%  { transform: translate(2%,3%) scale(1.03); opacity:0.85; }
-    100% { transform: translate(-1%,-2%) scale(0.98); opacity:1; }
+  @keyframes breath3 {
+    0%   { transform: scale(1) translate(0, 0); opacity: 0.7; }
+    33%  { transform: scale(1.1) translate(-2%, -5%); opacity: 1; }
+    66%  { transform: scale(0.93) translate(4%, 3%); opacity: 0.75; }
+    100% { transform: scale(1.06) translate(-3%, -2%); opacity: 0.95; }
   }
-  @keyframes auroraDrift4 {
-    0%   { transform: translate(0,0) scale(1); }
-    50%  { transform: translate(5%,-4%) scale(1.06); }
-    100% { transform: translate(-3%,2%) scale(0.96); }
-  }
-  @keyframes shimmerSweep {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  @keyframes breath4 {
+    0%   { transform: scale(1) translate(0, 0); opacity: 0.7; }
+    33%  { transform: scale(1.07) translate(-3%, -3%); opacity: 0.95; }
+    66%  { transform: scale(0.95) translate(4%, 4%); opacity: 0.8; }
+    100% { transform: scale(1.04) translate(-2%, -4%); opacity: 1; }
   }
 
   /* ── PASSWORD SCREEN ── */
   #lock-screen {
-    position: fixed;
-    inset: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: center; padding: 2rem;
   }
 
   .lock-card {
-    background: rgba(255,255,255,0.55);
-    backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    border: 1px solid rgba(190,180,250,0.35);
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
+    border: 1px solid var(--border);
     border-radius: 20px;
     padding: 2.5rem 2.5rem 2rem;
-    width: 100%;
-    max-width: 340px;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.7) inset;
+    width: 100%; max-width: 340px;
+    text-align: center; position: relative;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.9) inset, 0 8px 40px rgba(0,0,0,0.06);
   }
+  /* Opal top sheen on card */
   .lock-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 12%; right: 12%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(180,170,250,0.7), rgba(150,210,240,0.7), transparent);
+    content: ''; position: absolute; top: 0; left: 10%; right: 10%; height: 1px;
+    background: linear-gradient(90deg,
+      transparent,
+      rgba(238,225,255,0.9),
+      rgba(214,255,255,0.9),
+      rgba(255,228,251,0.9),
+      transparent
+    );
   }
 
-  .lock-icon {
-    font-size: 1.4rem;
-    margin-bottom: 1.2rem;
-    opacity: 0.4;
-  }
+  .lock-icon { font-size: 1.4rem; margin-bottom: 1.2rem; opacity: 0.35; }
 
   .lock-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.4rem;
-    font-weight: 300;
-    color: rgba(50,40,100,0.75);
-    margin-bottom: 0.3rem;
-    letter-spacing: 0.02em;
+    font-size: 1.5rem; font-weight: 300;
+    color: var(--ink); margin-bottom: 0.3rem; letter-spacing: 0.02em;
   }
 
   .lock-sub {
-    font-size: 8px;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(130,110,200,0.5);
-    margin-bottom: 1.8rem;
+    font-size: 8px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: 1.8rem;
   }
 
   .lock-input {
     width: 100%;
-    background: rgba(255,255,255,0.6);
-    border: 1px solid rgba(190,180,250,0.4);
+    background: rgba(255,255,255,0.8);
+    border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 0.7rem 1rem;
+    padding: 0.75rem 1rem;
     font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    letter-spacing: 0.1em;
-    color: rgba(50,40,100,0.8);
-    outline: none;
-    text-align: center;
-    transition: border-color 0.2s;
-    margin-bottom: 0.9rem;
+    font-size: 13px; letter-spacing: 0.1em;
+    color: var(--ink); outline: none; text-align: center;
+    transition: border-color 0.2s; margin-bottom: 0.9rem;
   }
-  .lock-input:focus {
-    border-color: rgba(160,140,240,0.7);
-  }
-  .lock-input::placeholder {
-    color: rgba(150,140,200,0.45);
-    letter-spacing: 0.15em;
-  }
+  .lock-input:focus { border-color: rgba(26,26,26,0.3); }
+  .lock-input::placeholder { color: rgba(26,26,26,0.25); letter-spacing: 0.15em; }
 
   .lock-btn {
     width: 100%;
-    background: rgba(160,140,240,0.15);
-    border: 1px solid rgba(160,140,240,0.35);
+    background: var(--ink);
+    border: none;
     border-radius: 10px;
-    padding: 0.7rem 1rem;
+    padding: 0.75rem 1rem;
     font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: rgba(80,60,160,0.75);
-    cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
-    margin-bottom: 0.9rem;
+    font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--white); cursor: pointer;
+    transition: opacity 0.2s; margin-bottom: 0.9rem;
   }
-  .lock-btn:hover {
-    background: rgba(160,140,240,0.25);
-    border-color: rgba(160,140,240,0.55);
-  }
+  .lock-btn:hover { opacity: 0.8; }
 
   .lock-error {
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    color: rgba(180,80,100,0.7);
-    text-transform: uppercase;
-    min-height: 16px;
-    transition: opacity 0.3s;
+    font-size: 9px; letter-spacing: 0.15em;
+    color: rgba(180,60,80,0.7); text-transform: uppercase; min-height: 16px;
   }
 
   /* ── MAIN CONTENT ── */
   #main-content { display: none; position: relative; z-index: 1; width: 100%; }
 
   .corner {
-    position: fixed; width: 36px; height: 36px;
-    border-color: rgba(140,120,210,0.35); border-style: solid; z-index: 2;
+    position: fixed; width: 32px; height: 32px;
+    border-color: var(--border); border-style: solid; z-index: 2;
   }
   .corner-tl { top: 2rem; left: 2rem; border-width: 1px 0 0 1px; }
   .corner-tr { top: 2rem; right: 2rem; border-width: 1px 1px 0 0; }
@@ -215,84 +217,87 @@
 
   .eyebrow {
     font-size: 9px; letter-spacing: 0.28em; text-transform: uppercase;
-    color: rgba(90,80,160,0.6); margin-bottom: 2.2rem;
+    color: var(--ink-soft); margin-bottom: 2.2rem;
     display: flex; align-items: center; justify-content: center; gap: 1rem;
   }
   .eyebrow::before, .eyebrow::after {
     content: ''; display: block; width: 36px; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(140,120,210,0.45));
+    background: linear-gradient(90deg, transparent, var(--border));
   }
-  .eyebrow::after { background: linear-gradient(90deg, rgba(140,120,210,0.45), transparent); }
+  .eyebrow::after { background: linear-gradient(90deg, var(--border), transparent); }
 
+  /* Name — top center, all black */
   .name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(2.6rem, 8vw, 5.2rem);
-    font-weight: 300; line-height: 1.05; letter-spacing: 0.01em; margin-bottom: 0.15rem;
-    background: linear-gradient(140deg, #7060C8 0%, #5098D8 22%, #8868D8 45%, #48C4C0 68%, #9068C8 88%, #60A0D8 100%);
-    background-size: 250% 250%;
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    animation: nameShimmer 9s ease-in-out infinite;
-  }
-  @keyframes nameShimmer {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+    font-size: clamp(2.8rem, 9vw, 5.8rem);
+    font-weight: 400; line-height: 1.0; letter-spacing: -0.01em;
+    color: #1A1A1A; margin-bottom: 0.15rem;
+    -webkit-text-fill-color: #1A1A1A;
   }
 
   .name-surname {
-    display: block; font-size: clamp(1.5rem, 4.5vw, 3rem);
-    font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase;
-    background: linear-gradient(140deg, #9888C8 0%, #70B8D8 35%, #A880C8 70%, #78C8C0 100%);
-    background-size: 250% 250%;
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    animation: nameShimmer 9s ease-in-out infinite; animation-delay: -3s; margin-top: 0.1rem;
+    display: block;
+    font-size: clamp(1.4rem, 4vw, 2.8rem);
+    font-weight: 300; letter-spacing: 0.14em; text-transform: uppercase;
+    color: #1A1A1A; -webkit-text-fill-color: #1A1A1A; margin-top: 0.1rem;
   }
 
   .title-rule {
     display: flex; align-items: center; justify-content: center;
-    gap: 0.75rem; margin: 1.6rem auto;
+    gap: 0.75rem; margin: 1.5rem auto;
   }
-  .title-rule span { display: block; width: 55px; height: 1px; background: linear-gradient(90deg, transparent, rgba(130,110,200,0.5), transparent); }
-  .title-rule i { font-size: 10px; color: rgba(130,110,200,0.5); }
+  .title-rule span { display: block; width: 50px; height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); }
+  .title-rule i { font-size: 9px; color: var(--ink-soft); }
 
   .role {
     font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
-    color: rgba(80,70,140,0.65); margin-bottom: 3rem;
+    color: var(--ink-soft); margin-bottom: 3rem;
   }
 
+  /* Frosted glass card */
   .maintenance-box {
-    background: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.65);
     backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(190,180,250,0.35); border-radius: 20px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
     padding: 2rem 2.5rem; margin-bottom: 2.5rem; position: relative;
-    box-shadow: 0 0 0 1px rgba(255,255,255,0.7) inset, 0 4px 60px rgba(150,130,220,0.06);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.9) inset, 0 4px 40px rgba(0,0,0,0.04);
   }
   .maintenance-box::before {
     content: ''; position: absolute; top: 0; left: 12%; right: 12%; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(180,170,250,0.7), rgba(150,210,240,0.7), rgba(200,170,250,0.7), transparent);
+    background: linear-gradient(90deg,
+      transparent,
+      rgba(238,225,255,0.8),
+      rgba(214,255,255,0.8),
+      rgba(255,228,251,0.8),
+      transparent
+    );
   }
 
   .maintenance-label {
     font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase;
-    color: rgba(130,110,200,0.55); margin-bottom: 1rem;
+    color: var(--ink-soft); margin-bottom: 1rem;
   }
   .maintenance-text {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.18rem; font-weight: 300; line-height: 1.9; color: rgba(50,40,100,0.6);
+    font-size: 1.18rem; font-weight: 300; line-height: 1.9;
+    color: var(--ink-mid);
   }
-  .maintenance-text strong { color: rgba(50,40,100,0.85); font-weight: 400; }
+  .maintenance-text strong { color: var(--ink); font-weight: 400; }
 
+  /* Progress bar */
   .progress-wrap { margin-bottom: 2.8rem; text-align: left; }
   .progress-label {
     font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(130,110,200,0.5); margin-bottom: 0.6rem;
+    color: var(--ink-soft); margin-bottom: 0.6rem;
     display: flex; justify-content: space-between;
   }
-  .progress-track { height: 1px; background: rgba(160,140,220,0.15); position: relative; }
+  .progress-track { height: 1px; background: var(--border); position: relative; }
   .progress-fill {
     height: 100%; width: 70%;
-    background: linear-gradient(90deg, rgba(180,165,245,0.8), rgba(140,205,235,0.8), rgba(195,165,245,0.8));
-    background-size: 200% 100%; animation: fillShimmer 4s ease-in-out infinite; position: relative;
+    background: linear-gradient(90deg, #EEE1FF, #D6FFFF, #FFE4FB);
+    background-size: 200% 100%; animation: fillShimmer 5s ease-in-out infinite;
+    position: relative;
   }
   @keyframes fillShimmer {
     0%   { background-position: 0% 0%; }
@@ -302,33 +307,33 @@
   .progress-fill::after {
     content: ''; position: absolute; right: -1px; top: -2.5px;
     width: 5px; height: 5px; border-radius: 50%;
-    background: rgba(160,140,240,0.9); animation: dot-pulse 2s ease-in-out infinite;
+    background: var(--ink); opacity: 0.25;
+    animation: dot-pulse 2s ease-in-out infinite;
   }
   @keyframes dot-pulse {
-    0%, 100% { opacity:1; box-shadow: 0 0 0 0 rgba(155,135,230,0.5); }
-    50%       { opacity:0.7; box-shadow: 0 0 0 5px rgba(155,135,230,0); }
+    0%, 100% { opacity:0.25; box-shadow: 0 0 0 0 rgba(26,26,26,0.15); }
+    50%       { opacity:0.15; box-shadow: 0 0 0 4px rgba(26,26,26,0); }
   }
 
+  /* Links */
   .links { display: flex; align-items: center; justify-content: center; gap: 1.8rem; flex-wrap: wrap; }
   .links a {
     font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(80,70,140,0.6); text-decoration: none; transition: color 0.25s; position: relative;
+    color: var(--ink-mid); text-decoration: none; transition: color 0.2s; position: relative;
   }
   .links a::after {
     content: ''; position: absolute; bottom: -3px; left: 0;
-    width: 0; height: 1px;
-    background: linear-gradient(90deg, rgba(160,140,240,0.8), rgba(120,200,220,0.8));
+    width: 0; height: 1px; background: var(--ink);
     transition: width 0.3s ease;
   }
-  .links a:hover { color: rgba(60,50,110,0.9); }
+  .links a:hover { color: var(--ink); }
   .links a:hover::after { width: 100%; }
-  .links-dot { width: 2.5px; height: 2.5px; border-radius: 50%; background: rgba(150,130,210,0.35); }
+  .links-dot { width: 2.5px; height: 2.5px; border-radius: 50%; background: var(--border); }
 
-  .footer-spacer { height: 3rem; }
   .footer {
     position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
     font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase;
-    color: rgba(100,90,160,0.35); z-index: 2; white-space: nowrap;
+    color: var(--ink-soft); opacity: 0.4; z-index: 2; white-space: nowrap;
   }
 </style>
 </head>
@@ -339,7 +344,7 @@
   <div class="aurora-2"></div>
   <div class="aurora-3"></div>
   <div class="aurora-4"></div>
-  <div class="aurora-shimmer"></div>
+  <div class="aurora-5"></div>
 </div>
 
 <!-- PASSWORD SCREEN -->
@@ -394,14 +399,11 @@
 </div>
 
 <script>
-  // Check session so password isn't re-asked on refresh
   if (sessionStorage.getItem('vldg_auth') === 'true') {
     document.getElementById('lock-screen').style.display = 'none';
-    document.getElementById('main-content').style.display = 'flex';
-    document.getElementById('main-content').style.flexDirection = 'column';
-    document.getElementById('main-content').style.alignItems = 'center';
+    var m = document.getElementById('main-content');
+    m.style.display = 'flex'; m.style.flexDirection = 'column'; m.style.alignItems = 'center';
   }
-
   function checkPassword() {
     var input = document.getElementById('pw-input').value;
     var error = document.getElementById('pw-error');
@@ -409,16 +411,13 @@
       sessionStorage.setItem('vldg_auth', 'true');
       document.getElementById('lock-screen').style.display = 'none';
       var main = document.getElementById('main-content');
-      main.style.display = 'flex';
-      main.style.flexDirection = 'column';
-      main.style.alignItems = 'center';
+      main.style.display = 'flex'; main.style.flexDirection = 'column'; main.style.alignItems = 'center';
       error.textContent = '';
     } else {
       error.textContent = 'Incorrect password';
       document.getElementById('pw-input').value = '';
     }
   }
-
   document.getElementById('pw-input').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') checkPassword();
   });
